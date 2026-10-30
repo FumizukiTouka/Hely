@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="id" class="no-js">
+<head>
+  <script>document.documentElement.classList.remove("no-js");</script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Helynia Raquela — The Demon Princess</title>
+  <meta name="description" content="Profil resmi Helynia Raquela, VTuber Demon Princess. Jadwal stream, lore, tautan, dan komunitas Hellper." />
+  <meta name="theme-color" content="#0a0608" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Helynia Raquela — The Demon Princess" />
+  <meta property="og:description" content="Selamat datang di kerajaanku, manusia fana~" />
+  <meta property="og:type" content="website" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Ambient layers -->
+  <canvas id="embers" aria-hidden="true"></canvas>
+  <div class="vignette" aria-hidden="true"></div>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="cursor-glow" aria-hidden="true"></div>
+
+  <!-- Anniversary banner (dikontrol oleh script.js) -->
+  <div class="anniv-banner" id="annivBanner" hidden>
+    <span class="anniv-banner__text" id="annivText"></span>
+    <button class="anniv-banner__close" id="annivClose" aria-label="Tutup banner">&times;</button>
+  </div>
+
+  <!-- ============ NAVIGATION ============ -->
+  <header class="nav" id="nav">
+    <div class="nav__inner">
+      <a href="#hero" class="nav__brand" aria-label="Helynia Raquela — kembali ke atas">
+        <span class="sigil" id="sigil">
+          <svg viewBox="0 0 64 64" aria-hidden="true">
+            <path d="M14 10c2 10 6 16 12 19M50 10c-2 10-6 16-12 19" />
+            <circle cx="32" cy="38" r="14" />
+            <path d="M32 26v24M22 38h20" />
+          </svg>
+        </span>
+        <span class="nav__brand-text">Helynia<em>Raquela</em></span>
+      </a>
+
+      <button class="nav__toggle" id="navToggle" aria-label="Buka menu" aria-expanded="false" aria-controls="navMenu">
+        <span></span><span></span><span></span>
+      </button>
+
+      <nav class="nav__menu" id="navMenu" aria-label="Navigasi utama">
+        <a href="#profile">Profil</a>
+        <a href="#schedule">Jadwal</a>
+        <a href="#links">Tautan</a>
+        <a href="#community">Komunitas</a>
+        <a href="#credits">Kontak</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- ============ HERO ============ -->
+    <section class="hero" id="hero">
+      <div class="hero__moon" aria-hidden="true"></div>
+
+      <div class="container hero__grid">
+        <div class="hero__content">
+          <p class="eyebrow reveal">
+            <span class="eyebrow__line"></span> The Demon Princess <span class="eyebrow__line"></span>
+          </p>
+
+          <h1 class="hero__title reveal">
+            <svg class="hero__crown" viewBox="0 0 120 48" aria-hidden="true">
+              <path d="M8 40 L16 10 L36 28 L60 4 L84 28 L104 10 L112 40 Z" />
+              <circle cx="16" cy="10" r="3" /><circle cx="60" cy="4" r="3.5" /><circle cx="104" cy="10" r="3" />
+              <path d="M8 44 H112" />
+            </svg>
+            <span class="hero__first" data-text="Helynia">Helynia</span>
+            <span class="hero__last">Raquela</span>
+          </h1>
+
+          <p class="hero__greeting reveal">
+            &ldquo;Selamat datang di kerajaanku, manusia fana~
+            <span>Berlututlah&hellip; atau setidaknya tekan tombol <em>subscribe</em>.&rdquo;</span>
+          </p>
+          <p class="hero__greeting-en reveal"><em>Welcome to my domain, mortal.</em></p>
+
+          <div class="hero__meta reveal">
+            <div class="meta-chip"><span class="meta-chip__label">Status</span><span class="meta-chip__value">Demon Princess</span></div>
+            <div class="meta-chip"><span class="meta-chip__label">Bertakhta</span><span class="meta-chip__value"><span id="reignDays">—</span> hari</span></div>
+            <div class="meta-chip"><span class="meta-chip__label">Bahasa</span><span class="meta-chip__value">ID / EN</span></div>
+          </div>
+
+          <div class="hero__cta reveal">
+            <a href="#schedule" class="btn btn--primary">
+              <span>Lihat Jadwal</span>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+            </a>
+            <a href="#links" class="btn btn--ghost"><span>Ikuti Sang Putri</span></a>
+          </div>
+        </div>
+
+        <!-- Placeholder model art -->
+        <div class="hero__art reveal">
+          <div class="portrait" id="portrait">
+            <div class="portrait__frame">
+              <span class="corner corner--tl"></span><span class="corner corner--tr"></span>
+              <span class="corner corner--bl"></span><span class="corner corner--br"></span>
+
+              <div class="portrait__inner">
+                <img src="hely.png" alt="Helynia Raquela, Demon Princess" class="portrait__img" />
+                <!--
+                  GANTI PLACEHOLDER INI dengan gambar model resolusi tinggi, misalnya:
+                  <img src="hely.png" alt="Helynia Raquela, Demon Princess" class="portrait__img" />
+                  Rekomendasi: PNG/WebP transparan, rasio 3:4, minimal 1500×2000 px.
+                -->
+                <div class="portrait__placeholder">
+                  <!--<svg class="portrait__silhouette" viewBox="0 0 200 260" aria-hidden="true">
+                    <path d="M62 70 C50 40 40 22 30 10 C52 22 68 40 76 60 Z" />
+                    <path d="M138 70 C150 40 160 22 170 10 C148 22 132 40 124 60 Z" />
+                    <ellipse cx="100" cy="92" rx="38" ry="44" />
+                    <path d="M40 260 C42 190 66 150 100 146 C134 150 158 190 160 260 Z" />
+                    <path d="M62 96 C56 150 50 190 44 230 L64 170 Z M138 96 C144 150 150 190 156 230 L136 170 Z" opacity=".7" />
+                    <g class="portrait__eyes">
+                      <ellipse cx="86" cy="96" rx="5" ry="3" />
+                      <ellipse cx="114" cy="96" rx="5" ry="3" />
+                    </g>
+                  </svg>
+                  <p class="portrait__label">Model Art</p>
+                  <p class="portrait__hint">Placeholder · High-Res 3:4</p>-->
+                </div>
+              </div>
+            </div>
+            <div class="portrait__plate">
+              <span>✦</span> Helynia Raquela <span>✦</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <a href="#profile" class="scroll-hint" aria-label="Gulir ke profil">
+        <span>Gulir</span>
+        <span class="scroll-hint__line"></span>
+      </a>
+    </section>
+
+    <!-- ============ PROFILE & LORE ============ -->
+    <section class="section" id="profile">
+      <div class="container">
+        <header class="section__head reveal">
+          <span class="section__chapter">Chapter I</span>
+          <h2 class="section__title">Profile <span>&amp;</span> Lore</h2>
+          <p class="section__sub">Catatan resmi tentang sang pewaris takhta neraka.</p>
+          <div class="ornament" aria-hidden="true"><span></span><i>❖</i><span></span></div>
+        </header>
+
+        <div class="profile-grid">
+          <!-- Identitas -->
+          <article class="card card--identity reveal">
+            <h3 class="card__title"><span class="card__icon">♛</span> Identitas Kerajaan</h3>
+            <dl class="identity">
+              <div class="identity__row">
+                <dt>Nama</dt><dd>Helynia Raquela</dd>
+              </div>
+              <div class="identity__row">
+                <dt>Status</dt><dd><span class="badge badge--crimson">Demon Princess</span></dd>
+              </div>
+              <div class="identity__row">
+                <dt>Ulang Tahun</dt><dd>6 Febuari</dd>
+              </div>
+              <div class="identity__row">
+                <dt>Debut</dt><dd>29 Oktober 2023</dd>
+              </div>
+              <div class="identity__row">
+                <dt>Bahasa</dt>
+                <dd class="lang"><span class="badge">ID</span><span class="badge">EN</span></dd>
+              </div>
+              <div class="identity__row">
+                <dt>Komunitas</dt><dd>Hellper</dd>
+              </div>
+              <div class="identity__row">
+                <dt>Penjaga</dt><dd>Servant (Moderator)</dd>
+              </div>
+            </dl>
+          </article>
+
+          <!-- Suka -->
+          <article class="card card--likes reveal">
+            <h3 class="card__title"><span class="card__icon">♥</span> Kesukaan</h3>
+            <ul class="taste-list">
+              <li class="taste">
+                <span class="taste__emoji" aria-hidden="true">💰</span>
+                <div><strong>Uang</strong><small>Persembahan terbaik untuk sang putri.</small></div>
+              </li>
+              <li class="taste">
+                <span class="taste__emoji" aria-hidden="true">🌶️</span>
+                <div><strong>Makanan Pedas</strong><small>Sepanas api neraka, makin nikmat.</small></div>
+              </li>
+              <li class="taste">
+                <span class="taste__emoji" aria-hidden="true">🎬</span>
+                <div><strong>Film Horor</strong><small>Teriakan manusia adalah musik pengantar tidur.</small></div>
+              </li>
+            </ul>
+          </article>
+
+          <!-- Tidak suka -->
+          <article class="card card--dislikes reveal">
+            <h3 class="card__title"><span class="card__icon">✕</span> Ketidaksukaan</h3>
+            <ul class="taste-list">
+              <li class="taste">
+                <span class="taste__emoji" aria-hidden="true">🥛</span>
+                <div><strong>Susu</strong><small>Ratu kita ini mengalami yang namanya lactose intolerance&hellip;</small></div>
+              </li>
+              <li class="taste">
+                <span class="taste__emoji" aria-hidden="true">🍫</span>
+                <div><strong>Coklat</strong><small>Ratu kita ini tidak menyukai coklat dikarenakan pahit dan tidak enak&hellip;</small></div>
+              </li>
+              <li class="taste">
+                <span class="taste__emoji" aria-hidden="true">👾</span>
+                <div><strong>Kodok &amp; Cicak</strong><small>Kita tidak mengetahui Kodok dan cicak di dunia bawah seperti apa, mungkin ratu kita ini punya pengalaman buruk tentangnya&hellip;</small></div>
+              </li>
+            </ul>
+          </article>
+
+          <!-- Lore -->
+          <article class="card card--lore reveal">
+            <div class="lore">
+              <div class="lore__seal" aria-hidden="true">
+                <svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="26" /><path d="M32 12 L37 27 L52 27 L40 36 L45 51 L32 42 L19 51 L24 36 L12 27 L27 27 Z" /></svg>
+              </div>
+              <h3 class="lore__title">Kitab Asal-Usul</h3>
+              <p class="lore__subtitle">The Tome of Origins</p>
+
+              <!-- AREA CERITA LATAR BELAKANG: ganti isi .lore__body dengan lore resmi -->
+              <div class="lore__body" id="loreBody">
+                <p class="lore__empty">
+                  Halaman-halaman kitab ini masih tersegel oleh sihir kuno&hellip;<br />
+                  Kisah sang putri akan terungkap ketika waktunya tiba.
+                </p>
+                <div class="lore__lines" aria-hidden="true">
+                  <span></span><span></span><span></span><span></span>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SCHEDULE ============ -->
+    <section class="section section--alt" id="schedule">
+      <div class="container">
+        <header class="section__head reveal">
+          <span class="section__chapter">Chapter II</span>
+          <h2 class="section__title">Royal <span>Schedule</span></h2>
+          <p class="section__sub">Hari-hari sang putri turun dari singgasana untuk menemui rakyatnya.</p>
+          <div class="ornament" aria-hidden="true"><span></span><i>❖</i><span></span></div>
+        </header>
+
+        <p class="schedule__status reveal" id="scheduleStatus" aria-live="polite"></p>
+
+        <!-- data-day mengikuti JS Date.getDay(): 0 = Minggu ... 6 = Sabtu -->
+        <div class="schedule">
+          <article class="day reveal" data-day="1">
+            <span class="day__name">Senin</span>
+            <span class="day__rest">Istirahat di Singgasana</span>
+          </article>
+
+          <article class="day day--live reveal" data-day="2">
+            <span class="day__flag">Live</span>
+            <span class="day__name">Selasa</span>
+            <h3 class="day__title">Freetalk <i>/</i> Gaming</h3>
+            <div class="day__tags"><span>Ngobrol</span><span>Game</span></div>
+            <span class="day__time">⏳ 20.00 WIB</span>
+          </article>
+
+          <article class="day reveal" data-day="3">
+            <span class="day__name">Rabu</span>
+            <span class="day__rest">Istirahat di Singgasana</span>
+          </article>
+
+          <article class="day day--live day--horror reveal" data-day="4">
+            <span class="day__flag">Live</span>
+            <span class="day__name">Kamis</span>
+            <h3 class="day__title">Freetalk <i>/</i> Game Horor</h3>
+            <div class="day__tags"><span>Ngobrol</span><span>Horor</span></div>
+            <span class="day__time">⏳ 20.00 WIB</span>
+          </article>
+
+          <article class="day reveal" data-day="5">
+            <span class="day__name">Jumat</span>
+            <span class="day__rest">Istirahat di Singgasana</span>
+          </article>
+
+          <article class="day day--live reveal" data-day="6">
+            <span class="day__flag">Live</span>
+            <span class="day__name">Sabtu</span>
+            <h3 class="day__title">Wuthering Waves <i>/</i> Freetalk</h3>
+            <div class="day__tags"><span>WuWa</span><span>Ngobrol</span></div>
+            <span class="day__time">⏳ 20.00 WIB</span>
+          </article>
+
+          <article class="day reveal" data-day="0">
+            <span class="day__name">Minggu</span>
+            <span class="day__rest">Istirahat di Singgasana</span>
+          </article>
+        </div>
+
+        <p class="schedule__note reveal">* Jadwal dapat berubah sewaktu-waktu. Pantau pengumuman di media sosial &amp; Discord.</p>
+      </div>
+    </section>
+
+    <!-- ============ LINKS ============ -->
+    <section class="section" id="links">
+      <div class="container">
+        <header class="section__head reveal">
+          <span class="section__chapter">Chapter III</span>
+          <h2 class="section__title">Gerbang <span>Kerajaan</span></h2>
+          <p class="section__sub">Ikuti sang putri di seluruh penjuru dunia fana &mdash; <strong>@HelyniaRaquela</strong></p>
+          <div class="ornament" aria-hidden="true"><span></span><i>❖</i><span></span></div>
+        </header>
+
+        <!-- Tautan resmi. Hely tidak menggunakan Facebook & Twitch. -->
+        <div class="links-grid">
+          <a href="https://youtube.com/@helyniaraquela?si=SMgMCKmX6sLwZPyl" class="link-card link-card--yt reveal" target="_blank" rel="noopener" aria-label="YouTube Helynia Raquela">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+            <span class="link-card__platform">YouTube</span>
+            <span class="link-card__handle">@helyniaraquela</span>
+            <span class="link-card__arrow">↗</span>
+          </a>
+          <a href="https://x.com/Helyniaraquela" class="link-card link-card--x reveal" target="_blank" rel="noopener" aria-label="X Helynia Raquela">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg>
+            <span class="link-card__platform">X / Twitter</span>
+            <span class="link-card__handle">@Helyniaraquela</span>
+            <span class="link-card__arrow">↗</span>
+          </a>
+          <a href="https://www.tiktok.com/@helyniaraquela_?_r=1&_t=ZS-9AyyCx0dvyj" class="link-card link-card--tt reveal" target="_blank" rel="noopener" aria-label="TikTok Helynia Raquela">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.350 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.150-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
+            <span class="link-card__platform">TikTok</span>
+            <span class="link-card__handle">@helyniaraquela_</span>
+            <span class="link-card__arrow">↗</span>
+          </a>
+          <a href="https://www.instagram.com/helyniaraquela?vrfl=bGZmb3RzbHAyNWZ5" class="link-card link-card--ig reveal" target="_blank" rel="noopener" aria-label="Instagram Helynia Raquela">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 1.17.054 1.805.249 2.227.413.56.218.96.478 1.38.898.42.42.68.82.898 1.38.164.422.36 1.057.413 2.227.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.054 1.17-.249 1.805-.413 2.227-.218.56-.478.96-.898 1.38-.42.42-.82.68-1.38.898-.422.164-1.057.36-2.227.413-1.266.058-1.646.07-4.85.07s-3.584-.012-4.85-.07c-1.17-.054-1.805-.249-2.227-.413a3.71 3.71 0 0 1-1.38-.898 3.71 3.71 0 0 1-.898-1.38c-.164-.422-.36-1.057-.413-2.227-.058-1.266-.07-1.646-.07-4.85s.012-3.584.07-4.85c.054-1.17.249-1.805.413-2.227.218-.56.478-.96.898-1.38.42-.42.82-.68 1.38-.898.422-.164 1.057-.36 2.227-.413 1.266-.058 1.646-.07 4.85-.07M12 0C8.741 0 8.333.014 7.053.072 5.775.13 4.902.333 4.14.63a5.88 5.88 0 0 0-2.126 1.384A5.88 5.88 0 0 0 .63 4.14C.333 4.902.13 5.775.072 7.053.014 8.333 0 8.741 0 12s.014 3.667.072 4.947c.058 1.278.261 2.15.558 2.913a5.88 5.88 0 0 0 1.384 2.126A5.88 5.88 0 0 0 4.14 23.37c.763.297 1.635.5 2.913.558C8.333 23.986 8.741 24 12 24s3.667-.014 4.947-.072c1.278-.058 2.15-.261 2.913-.558a5.88 5.88 0 0 0 2.126-1.384 5.88 5.88 0 0 0 1.384-2.126c.297-.763.5-1.635.558-2.913.058-1.28.072-1.688.072-4.947s-.014-3.667-.072-4.947c-.058-1.278-.261-2.15-.558-2.913a5.88 5.88 0 0 0-1.384-2.126A5.88 5.88 0 0 0 19.86.63C19.097.333 18.225.13 16.947.072 15.667.014 15.259 0 12 0Zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324ZM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8Zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881Z"/></svg>
+            <span class="link-card__platform">Instagram</span>
+            <span class="link-card__handle">@helyniaraquela</span>
+            <span class="link-card__arrow">↗</span>
+          </a>
+        </div>
+        <p class="links__disclaimer reveal">* Hely tidak menggunakan Facebook maupun Twitch. Waspadai akun tiruan.</p>
+
+        <div class="links-feature">
+          <!-- Discord -->
+          <a href="https://discord.com/invite/9mU5grSfKz" class="discord-card reveal" target="_blank" rel="noopener">
+            <div class="discord-card__glow" aria-hidden="true"></div>
+            <svg class="discord-card__logo" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.317 4.37a19.79 19.79 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.865-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.74 19.74 0 0 0 3.677 4.37a.07.07 0 0 0-.032.028C.533 9.046-.319 13.58.099 18.058a.082.082 0 0 0 .031.056 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.873-1.295 1.226-1.994a.076.076 0 0 0-.042-.106 13.1 13.1 0 0 1-1.872-.892.077.077 0 0 1-.008-.128c.126-.094.252-.192.372-.291a.074.074 0 0 1 .078-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.3 12.3 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.84 19.84 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.182 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
+            <div class="discord-card__body">
+              <span class="discord-card__eyebrow">Server Discord Resmi</span>
+              <h3 class="discord-card__title">Hellper</h3>
+              <p>Bergabunglah dengan para pengikut setia sang putri. Info stream, obrolan, fanart, dan event komunitas.</p>
+              <span class="btn btn--discord"><span>Gabung Server</span></span>
+            </div>
+          </a>
+
+          <!-- Donasi -->
+          <div class="donate-card reveal">
+            <span class="donate-card__eyebrow">Persembahan</span>
+            <h3 class="donate-card__title">Tribute <span>untuk Sang Putri</span></h3>
+            <p>Sang putri sangat menyukai uang. Setiap persembahan akan diterima dengan senyum (dan mungkin tawa jahat).</p>
+            <div class="donate-list">
+              <a href="https://tako.id/Helyniaraquela/auctions" class="donate-btn donate-btn--primary" target="_blank" rel="noopener">
+                <span>🪙</span>
+                <div>
+                  <strong>Tako.id &mdash; Helyniaraquela</strong>
+                  <small>Dukungan &amp; lelang resmi</small>
+                </div>
+                <span class="donate-btn__arrow">↗</span>
+              </a>
+              <a href="https://youtube.com/@helyniaraquela?si=SMgMCKmX6sLwZPyl" class="donate-btn" target="_blank" rel="noopener">
+                <span>💎</span>
+                <div>
+                  <strong>YouTube Superchat</strong>
+                  <small>Tersedia saat siaran langsung</small>
+                </div>
+                <span class="donate-btn__arrow">↗</span>
+              </a>
+            </div>
+            <p class="donate-card__note">* Hely hanya menggunakan Tako dan YouTube Superchat untuk dukungan.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ COMMUNITY ============ -->
+    <section class="section section--alt" id="community">
+      <div class="container">
+        <header class="section__head reveal">
+          <span class="section__chapter">Chapter IV</span>
+          <h2 class="section__title">The <span>Hellper</span> Court</h2>
+          <p class="section__sub">Tagar resmi, titah kerajaan, dan para Servant penjaga ketertiban.</p>
+          <div class="ornament" aria-hidden="true"><span></span><i>❖</i><span></span></div>
+        </header>
+
+        <!-- Hashtags -->
+        <div class="subhead reveal">
+          <h3>Tagar Resmi</h3>
+          <p>Klik untuk menyalin.</p>
+        </div>
+        <div class="tags">
+          <button class="tag reveal" data-copy="#HelyniaRaquela">
+            <span class="tag__name">#HelyniaRaquela</span>
+            <span class="tag__desc">Tagar utama &amp; umum</span>
+          </button>
+          <button class="tag reveal" data-copy="#Helonair">
+            <span class="tag__name">#Helonair</span>
+            <span class="tag__desc">Saat siaran langsung</span>
+          </button>
+          <button class="tag reveal" data-copy="#Whathehel">
+            <span class="tag__name">#Whathehel</span>
+            <span class="tag__desc">Momen lucu &amp; meme</span>
+          </button>
+          <button class="tag reveal" data-copy="#Helineart">
+            <span class="tag__name">#Helineart</span>
+            <span class="tag__desc">Fanart</span>
+          </button>
+          <button class="tag reveal" data-copy="#heliclip">
+            <span class="tag__name">#heliclip</span>
+            <span class="tag__desc">Klip &amp; cuplikan stream</span>
+          </button>
+        </div>
+
+        <!-- Rules -->
+        <div class="decree reveal">
+          <div class="decree__head">
+            <span class="decree__seal" aria-hidden="true">H</span>
+            <div>
+              <h3 class="decree__title">Titah Sang Putri</h3>
+              <p class="decree__sub">Aturan obrolan yang wajib dipatuhi oleh seluruh rakyat kerajaan.</p>
+            </div>
+          </div>
+
+          <ol class="rules">
+            <li class="rule">
+              <span class="rule__num">I</span>
+              <div><strong>Dilarang Backseating</strong><p>Jangan mengatur atau memberi arahan permainan kecuali sang putri memintanya.</p></div>
+            </li>
+            <li class="rule">
+              <span class="rule__num">II</span>
+              <div><strong>Dilarang SARA</strong><p>Tidak ada ruang untuk ujaran yang menyinggung suku, agama, ras, dan antargolongan.</p></div>
+            </li>
+            <li class="rule">
+              <span class="rule__num">III</span>
+              <div><strong>Dilarang Spam</strong><p>Termasuk flood pesan, emote berlebihan, dan tautan yang tidak diizinkan.</p></div>
+            </li>
+            <li class="rule">
+              <span class="rule__num">IV</span>
+              <div><strong>Dilarang OOT</strong><p>Tetap pada topik yang sedang berlangsung di stream.</p></div>
+            </li>
+            <li class="rule">
+              <span class="rule__num">V</span>
+              <div><strong>Wajib Sopan</strong><p>Hormati sang putri, sesama penonton, dan para Servant.</p></div>
+            </li>
+            <li class="rule">
+              <span class="rule__num">VI</span>
+              <div><strong>Tidak Membahas Topik Sensitif</strong><p>Hindari politik, tragedi, dan isu sensitif lainnya.</p></div>
+            </li>
+            <li class="rule">
+              <span class="rule__num">VII</span>
+              <div><strong>Dilarang Menyebut VTuber Lain</strong><p>Kecuali sang putri sendiri yang membahasnya terlebih dahulu.</p></div>
+            </li>
+          </ol>
+
+          <p class="decree__warn">⚠ Pelanggaran terhadap titah ini akan ditindak tegas oleh para Servant.</p>
+        </div>
+
+        <!-- Moderators -->
+        <div class="subhead reveal">
+          <h3>Para Servant</h3>
+          <p>Moderator setia yang menjaga ketertiban kerajaan.</p>
+        </div>
+
+        <!-- Daftar Servant (Moderator) resmi -->
+        <div class="servants">
+          <article class="servant servant--head reveal">
+            <div class="servant__avatar"><span>R</span></div>
+            <span class="servant__rank">Head Servant</span>
+            <h4 class="servant__name">Rya</h4>
+            <p class="servant__desc">Kepala pelayan yang mengawasi seluruh Servant dan ketertiban kerajaan.</p>
+            <div class="servant__platforms"><span>YouTube</span><span>Discord</span></div>
+          </article>
+          <article class="servant reveal">
+            <div class="servant__avatar"><span>N</span></div>
+            <span class="servant__rank">Servant</span>
+            <h4 class="servant__name">NatadeCoco</h4>
+            <p class="servant__desc">Pelayan setia penjaga ketertiban live chat dan server komunitas.</p>
+            <div class="servant__platforms"><span>YouTube</span><span>Discord</span></div>
+          </article>
+          <article class="servant reveal">
+            <div class="servant__avatar"><span>P</span></div>
+            <span class="servant__rank">Servant / Bapak</span>
+            <h4 class="servant__name">PakDok / DrThodz</h4>
+            <p class="servant__desc">Pelayan sekaligus sosok bapak pengayom ketertiban komunitas.</p>
+            <div class="servant__platforms"><span>YouTube</span><span>Discord</span></div>
+          </article>
+          <article class="servant reveal">
+            <div class="servant__avatar"><span>T</span></div>
+            <span class="servant__rank">Servant</span>
+            <h4 class="servant__name">Touka</h4>
+            <p class="servant__desc">Pelayan setia penjaga ketertiban live chat dan server komunitas.</p>
+            <div class="servant__platforms"><span>YouTube</span><span>Discord</span></div>
+          </article>
+          <article class="servant reveal">
+            <div class="servant__avatar"><span>K</span></div>
+            <span class="servant__rank">Servant</span>
+            <h4 class="servant__name">Khairi</h4>
+            <p class="servant__desc">Pelayan setia penjaga ketertiban live chat dan server komunitas.</p>
+            <div class="servant__platforms"><span>YouTube</span><span>Discord</span></div>
+          </article>
+          <article class="servant reveal">
+            <div class="servant__avatar"><span>M</span></div>
+            <span class="servant__rank">Servant</span>
+            <h4 class="servant__name">Mina</h4>
+            <p class="servant__desc">Pelayan setia penjaga ketertiban live chat dan server komunitas.</p>
+            <div class="servant__platforms"><span>YouTube</span><span>Discord</span></div>
+          </article>
+          <article class="servant servant--recruit reveal">
+            <div class="servant__avatar"><span>+</span></div>
+            <span class="servant__rank">???</span>
+            <h4 class="servant__name">Kursi Kosong</h4>
+            <p class="servant__desc">Siapakah pelayan selanjutnya yang akan dipilih oleh sang ratu.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CREDITS & CONTACT ============ -->
+    <section class="section" id="credits">
+      <div class="container">
+        <header class="section__head reveal">
+          <span class="section__chapter">Epilogue</span>
+          <h2 class="section__title">Credits <span>&amp;</span> Contact</h2>
+          <div class="ornament" aria-hidden="true"><span></span><i>❖</i><span></span></div>
+        </header>
+
+        <div class="credits-grid">
+          <div class="credit-card reveal">
+            <span class="credit-card__label">Kreator</span>
+            <h3 class="credit-card__name">NVoid</h3>
+            <p class="credit-card__alias">a.k.a. <strong>NekoVoid</strong> &mdash; Sang pencipta di balik wujud Demon Princess.</p>
+            <ul class="credit-list">
+              <li><span>Ilustrator</span><b>NVoid (NekoVoid)</b></li>
+              <li><span>Live2D Rigger</span><b>NVoid (NekoVoid)</b></li>
+            </ul>
+          </div>
+
+          <div class="contact-card reveal">
+            <span class="credit-card__label">Pertanyaan Bisnis</span>
+            <h3 class="contact-card__title">Ajukan Kontrak dengan Sang Putri</h3>
+            <p>Untuk kolaborasi, sponsorship, dan pertanyaan bisnis lainnya.</p>
+            <div class="email-box">
+              <a href="mailto:business@example.com" class="email-box__addr" id="bizEmail">business@example.com</a>
+              <button class="email-box__copy" data-copy="business@example.com" aria-label="Salin email bisnis">Salin</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div class="footer__brand">Helynia<em>Raquela</em></div>
+      <p class="footer__quote">&ldquo;Sampai jumpa di stream berikutnya&hellip; jangan sampai aku yang menjemputmu.&rdquo;</p>
+      <p class="footer__copy">&copy; <span id="year"></span> Helynia Raquela. Created by NVoid (NekoVoid).</p>
+      <a href="#hero" class="footer__top" aria-label="Kembali ke atas">↑</a>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <div class="summon" id="summon" aria-hidden="true"><p>&ldquo;Kau&hellip; memanggilku?&rdquo;</p></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
