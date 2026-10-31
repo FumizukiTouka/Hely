@@ -109,6 +109,12 @@ main, .footer, .nav { position: relative; z-index: 3; }
   font-family: var(--font-head); font-size: 0.85rem; letter-spacing: 0.08em; text-align: center;
 }
 .anniv-banner[hidden] { display: none; }
+.anniv-banner--bday {
+  background: linear-gradient(90deg, var(--violet), var(--crimson), var(--gold-soft), var(--crimson), var(--violet));
+  background-size: 300% 100%;
+  animation: bdayShift 8s linear infinite;
+}
+@keyframes bdayShift { to { background-position: 300% 0; } }
 .anniv-banner__close { position: absolute; right: 1rem; font-size: 1.4rem; line-height: 1; opacity: 0.8; }
 .anniv-banner__close:hover { opacity: 1; }
 
@@ -453,6 +459,37 @@ main, .footer, .nav { position: relative; z-index: 3; }
   letter-spacing: 0.1em; color: var(--text-dim); font-size: 0.95rem;
 }
 .schedule__status b { color: var(--crimson-bright); font-weight: 600; }
+.schedule__status a, .schedule__note a { color: var(--gold); border-bottom: 1px solid var(--gold-soft); transition: color 0.3s; }
+.schedule__status a:hover, .schedule__note a:hover { color: var(--crimson-bright); }
+
+/* Mode YouTube */
+.schedule--loading { opacity: 0.35; filter: grayscale(0.6); pointer-events: none; transition: opacity 0.4s; }
+.day__date { font-family: var(--font-ui); font-size: 0.68rem; letter-spacing: 0.12em; color: var(--muted); margin-top: -0.35rem; }
+.day--live .day__date { color: var(--text-dim); }
+.stream {
+  width: 100%; display: flex; flex-direction: column; gap: 0.45rem; margin-top: 0.3rem;
+  text-align: center; transition: transform 0.3s var(--ease);
+}
+.stream + .stream { padding-top: 0.7rem; border-top: 1px dashed var(--line); }
+.stream__thumb {
+  position: relative; display: grid; place-items: center; aspect-ratio: 16 / 9; overflow: hidden;
+  border: 1px solid var(--line); background: linear-gradient(135deg, var(--violet), var(--bg));
+}
+.stream__thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s var(--ease); }
+.stream__thumb i { font-style: normal; color: var(--crimson-bright); font-size: 1.2rem; }
+.stream:hover .stream__thumb img { transform: scale(1.06); }
+.stream__title {
+  font-family: var(--font-head); font-size: 0.82rem; line-height: 1.35; color: var(--text);
+  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+  transition: color 0.3s;
+}
+.stream:hover .stream__title { color: var(--gold); }
+.stream .day__time { margin-top: 0; }
+.stream--live .day__time { color: var(--crimson-bright); font-weight: 600; }
+.day--onair .day__flag { animation: onair 1.6s ease-in-out infinite; }
+@keyframes onair { 50% { background: var(--crimson-bright); box-shadow: 0 0 14px var(--crimson-bright); } }
+.schedule--yt .day { min-height: 260px; }
+.schedule--yt .day__flag { letter-spacing: 0.1em; padding-inline: 0.55rem; }
 .schedule { display: grid; grid-template-columns: repeat(7, 1fr); gap: 1.6rem 0.9rem; }
 .day {
   position: relative; display: flex; flex-direction: column; align-items: center; text-align: center;
@@ -474,7 +511,7 @@ main, .footer, .nav { position: relative; z-index: 3; }
 
 .day__flag {
   position: absolute; top: -10px; left: 50%; transform: translateX(-50%);
-  padding: 0.12rem 0.7rem; background: var(--crimson); color: #fff;
+  padding: 0.12rem 0.7rem; background: var(--crimson); color: #fff; white-space: nowrap;
   font-family: var(--font-ui); font-size: 0.62rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase;
 }
 .day__title { font-family: var(--font-head); font-size: 1.1rem; line-height: 1.3; margin-top: 0.5rem; }
@@ -634,7 +671,7 @@ main, .footer, .nav { position: relative; z-index: 3; }
 }
 
 /* Servants */
-.servants { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; }
+.servants { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.2rem; }
 .servant {
   position: relative; display: flex; flex-direction: column; align-items: center; text-align: center;
   padding: 2rem 1.4rem; border: 1px solid var(--line); background: rgba(10, 6, 8, 0.7);
@@ -800,6 +837,7 @@ main, .footer, .nav { position: relative; z-index: 3; }
   .links-grid, .tags, .servants { grid-template-columns: 1fr; }
   .schedule { grid-template-columns: 1fr; }
   .day { min-height: auto; padding: 1.4rem 1rem 1.6rem; }
+  .schedule--yt .day { min-height: auto; }
   .day__rest { margin: 0; }
   .btn { padding: 0.85rem 1.3rem; }
 }

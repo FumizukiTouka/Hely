@@ -25,7 +25,7 @@
   <div class="grain" aria-hidden="true"></div>
   <div class="cursor-glow" aria-hidden="true"></div>
 
-  <!-- Anniversary banner (dikontrol oleh script.js) -->
+  <!-- Banner perayaan: Anniversary & Ulang Tahun (dikontrol oleh script.js) -->
   <div class="anniv-banner" id="annivBanner" hidden>
     <span class="anniv-banner__text" id="annivText"></span>
     <button class="anniv-banner__close" id="annivClose" aria-label="Tutup banner">&times;</button>
@@ -167,7 +167,7 @@
                 <dt>Status</dt><dd><span class="badge badge--crimson">Demon Princess</span></dd>
               </div>
               <div class="identity__row">
-                <dt>Ulang Tahun</dt><dd>6 Febuari</dd>
+                <dt>Ulang Tahun</dt><dd>6 Februari</dd>
               </div>
               <div class="identity__row">
                 <dt>Debut</dt><dd>29 Oktober 2023</dd>
@@ -210,15 +210,15 @@
             <ul class="taste-list">
               <li class="taste">
                 <span class="taste__emoji" aria-hidden="true">🥛</span>
-                <div><strong>Susu</strong><small>Putri kita ini mengalami yang namanya lactose intolerance&hellip;</small></div>
+                <div><strong>Susu</strong><small>Ratu kita ini mengalami yang namanya lactose intolerance&hellip;</small></div>
               </li>
               <li class="taste">
                 <span class="taste__emoji" aria-hidden="true">🍫</span>
-                <div><strong>Coklat</strong><small>Putri kita ini tidak menyukai coklat dikarenakan pahit dan tidak enak&hellip;</small></div>
+                <div><strong>Coklat</strong><small>Ratu kita ini tidak menyukai coklat dikarenakan pahit dan tidak enak&hellip;</small></div>
               </li>
               <li class="taste">
                 <span class="taste__emoji" aria-hidden="true">👾</span>
-                <div><strong>Kodok &amp; Cicak</strong><small>Kita tidak mengetahui Kodok dan cicak di dunia bawah seperti apa, mungkin putri kita ini punya pengalaman buruk tentangnya&hellip;</small></div>
+                <div><strong>Kodok &amp; Cicak</strong><small>Kita tidak mengetahui Kodok dan cicak di dunia bawah seperti apa, mungkin ratu kita ini punya pengalaman buruk tentangnya&hellip;</small></div>
               </li>
             </ul>
           </article>
@@ -260,7 +260,9 @@
 
         <p class="schedule__status reveal" id="scheduleStatus" aria-live="polite"></p>
 
-        <!-- data-day mengikuti JS Date.getDay(): 0 = Minggu ... 6 = Sabtu -->
+        <!-- Jadwal template mingguan. Jika YouTube API key diisi di script.js,
+             bagian ini otomatis diganti dengan waiting room / live dari channel.
+             data-day mengikuti JS Date.getDay(): 0 = Minggu ... 6 = Sabtu -->
         <div class="schedule">
           <article class="day reveal" data-day="1">
             <span class="day__name">Senin</span>
@@ -484,9 +486,9 @@
         <div class="servants">
           <article class="servant servant--head reveal">
             <div class="servant__avatar"><span>R</span></div>
-            <span class="servant__rank">Head Servant</span>
+            <span class="servant__rank">Servant/Kakak Tertua</span>
             <h4 class="servant__name">Rya</h4>
-            <p class="servant__desc">Kepala pelayan yang mengawasi seluruh Servant dan ketertiban kerajaan.</p>
+            <p class="servant__desc">Sang kakak tertua yang mengawasi seluruh Servant dan ketertiban kerajaan.</p>
             <div class="servant__platforms"><span>YouTube</span><span>Discord</span></div>
           </article>
           <article class="servant reveal">
@@ -495,6 +497,13 @@
             <h4 class="servant__name">NatadeCoco</h4>
             <p class="servant__desc">Pelayan setia penjaga ketertiban live chat dan server komunitas.</p>
             <div class="servant__platforms"><span>YouTube</span><span>Discord</span></div>
+          </article>
+          <article class="servant reveal">
+            <div class="servant__avatar"><span>R</span></div>
+            <span class="servant__rank">Servant</span>
+            <h4 class="servant__name">Rei</h4>
+            <p class="servant__desc">Pelayan setia penjaga serta orang yang mengatur discord server komunitas.</p>
+            <div class="servant__platforms"><span>Discord</span></div>
           </article>
           <article class="servant reveal">
             <div class="servant__avatar"><span>P</span></div>
@@ -511,16 +520,16 @@
             <div class="servant__platforms"><span>YouTube</span><span>Discord</span></div>
           </article>
           <article class="servant reveal">
-            <div class="servant__avatar"><span>K</span></div>
+            <div class="servant__avatar"><span>M</span></div>
             <span class="servant__rank">Servant</span>
-            <h4 class="servant__name">Khairi</h4>
+            <h4 class="servant__name">Mina</h4>
             <p class="servant__desc">Pelayan setia penjaga ketertiban live chat dan server komunitas.</p>
             <div class="servant__platforms"><span>YouTube</span><span>Discord</span></div>
           </article>
           <article class="servant reveal">
-            <div class="servant__avatar"><span>M</span></div>
+            <div class="servant__avatar"><span>K</span></div>
             <span class="servant__rank">Servant</span>
-            <h4 class="servant__name">Mina</h4>
+            <h4 class="servant__name">Khairi</h4>
             <p class="servant__desc">Pelayan setia penjaga ketertiban live chat dan server komunitas.</p>
             <div class="servant__platforms"><span>YouTube</span><span>Discord</span></div>
           </article>
@@ -528,7 +537,7 @@
             <div class="servant__avatar"><span>+</span></div>
             <span class="servant__rank">???</span>
             <h4 class="servant__name">Kursi Kosong</h4>
-            <p class="servant__desc">Siapakah pelayan selanjutnya yang akan dipilih oleh sang putri.</p>
+            <p class="servant__desc">Siapakah pelayan selanjutnya yang akan dipilih oleh sang ratu.</p>
           </article>
         </div>
       </div>
