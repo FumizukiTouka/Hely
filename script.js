@@ -18,7 +18,7 @@
   // Jika apiKey kosong / gagal, jadwal template mingguan di HTML yang dipakai.
   // PENTING: batasi key ini dengan "HTTP referrer" (domain website) di Google Cloud Console.
   const YT = {
-    apiKey: "",
+    apiKey: "AIzaSyDr0nmXXZXUjBk4cfrdETPDzp1v4At4QZM",
     handle: "helyniaraquela",   // handle channel tanpa "@"
     channelId: "",              // opsional (UCxxxx). Jika diisi, lookup handle dilewati.
     cacheMinutes: 10,           // data disimpan di browser pengunjung agar hemat kuota
@@ -294,15 +294,19 @@
       return payload;
     };
 
-    // Data contoh untuk ?schedule=demo
-    const demoStreams = () => ({
-      t: Date.now(),
-      items: [
-        { id: "demo1", title: "【FREETALK】Ngobrol santai bareng Hellper~ #Helonair", status: "upcoming", start: wibAt(0, 20).toISOString(), thumb: "" },
-        { id: "demo2", title: "【HORROR】Jangan tinggalkan sang putri sendirian… #Helonair", status: "upcoming", start: wibAt(2, 20).toISOString(), thumb: "" },
-        { id: "demo3", title: "【Wuthering Waves】Gacha pakai uang persembahan rakyat", status: "upcoming", start: wibAt(4, 19, 30).toISOString(), thumb: "" },
-      ],
-    });
+    // Data contoh untuk ?schedule=demo (Selasa, Kamis, Sabtu minggu ini + 1 minggu depan yang disembunyikan)
+    const demoStreams = () => {
+      const monOffset = -((wibParts().wd + 6) % 7);
+      return {
+        t: Date.now(),
+        items: [
+          { id: "demo1", title: "【FREETALK】Ngobrol santai bareng Hellper~ #Helonair", status: "upcoming", start: wibAt(monOffset + 1, 20).toISOString(), thumb: "" },
+          { id: "demo2", title: "【HORROR】Jangan tinggalkan sang putri sendirian… #Helonair", status: "upcoming", start: wibAt(monOffset + 3, 20).toISOString(), thumb: "" },
+          { id: "demo3", title: "【Wuthering Waves】Gacha pakai uang persembahan rakyat", status: "upcoming", start: wibAt(monOffset + 5, 20).toISOString(), thumb: "" },
+          { id: "demoNextWeek", title: "【MINGGU DEPAN】Stream ini baru muncul saat reset hari Senin", status: "upcoming", start: wibAt(monOffset + 8, 20).toISOString(), thumb: "" },
+        ],
+      };
+    };
 
     const streamCard = (s) => {
       const isLive = s.status === "live";
@@ -318,28 +322,40 @@
 
     const renderYouTube = ({ t, items }) => {
       const now = Date.now();
+      // Hitung rentang minggu berjalan (Senin 00:00 WIB s/d Minggu 23:59:59 WIB).
+      // Saat berganti hari ke Senin 00:00 WIB, rentang otomatis bergeser ke minggu baru.
+      const todayIdxFromMon = (wibParts().wd + 6) % 7; // 0 = Senin ... 6 = Minggu
+      const weekStart = wibAt(-todayIdxFromMon, 0, 0).getTime();
+      const weekEnd = wibAt(7 - todayIdxFromMon, 0, 0).getTime();
+
       const streams = items
-        // buang waiting room usang yang tidak pernah dimulai
-        .filter((s) => s.status === "live" || new Date(s.start).getTime() > now - 6 * HOUR_MS)
+        .filter((s) => {
+          const startMs = new Date(s.start).getTime();
+          if (s.status === "live") return true;
+          // Hanya tampilkan waiting room di minggu berjalan & belum kedaluwarsa
+          return startMs >= weekStart && startMs < weekEnd && startMs > now - 6 * HOUR_MS;
+        })
         .sort((a, b) => new Date(a.start) - new Date(b.start));
 
-      const days = Array.from({ length: YT.lookaheadDays }, (_, o) => {
-        const date = wibAt(o, 12);
-        return { o, date, key: wibKey(date), items: [] };
+      // 7 kartu selalu berurutan Senin s/d Minggu untuk minggu berjalan
+      const days = Array.from({ length: 7 }, (_, i) => {
+        const offsetFromToday = i - todayIdxFromMon;
+        const date = wibAt(offsetFromToday, 12);
+        return { i, isToday: offsetFromToday === 0, date, key: wibKey(date), items: [] };
       });
       streams.forEach((s) => {
         const day = days.find((d) => d.key === wibKey(new Date(s.start)));
         if (day) day.items.push(s);
-        else if (s.status === "live") days[0].items.unshift(s); // live sejak kemarin
+        else if (s.status === "live") days[todayIdxFromMon].items.unshift(s);
       });
 
       const next = streams.find((s) => s.status === "live") || streams.find((s) => new Date(s.start).getTime() > now - 3 * HOUR_MS);
-      const nextKey = next ? (next.status === "live" ? days[0].key : wibKey(new Date(next.start))) : null;
+      const nextKey = next ? (next.status === "live" ? days[todayIdxFromMon].key : wibKey(new Date(next.start))) : null;
 
       grid.innerHTML = days.map((d) => {
         const has = d.items.length > 0;
         const live = d.items.some((s) => s.status === "live");
-        const cls = ["day", has && "day--live", live && "day--onair", d.o === 0 && "is-today", d.key === nextKey && "is-next"].filter(Boolean).join(" ");
+        const cls = ["day", has && "day--live", live && "day--onair", d.isToday && "is-today", d.key === nextKey && "is-next"].filter(Boolean).join(" ");
         return `
           <article class="${cls}">
             ${has ? `<span class="day__flag">${live ? "Live" : "Waiting Room"}</span>` : ""}
@@ -352,7 +368,7 @@
       grid.classList.add("schedule--yt");
 
       if (!next) {
-        status.innerHTML = `Belum ada waiting room yang dijadwalkan. Pantau pengumuman di <a href="https://x.com/Helyniaraquela" target="_blank" rel="noopener">X</a> &amp; Discord.`;
+        status.innerHTML = `Belum ada waiting room untuk minggu ini. Pantau pengumuman di <a href="https://x.com/Helyniaraquela" target="_blank" rel="noopener">X</a> &amp; Discord.`;
       } else if (next.status === "live") {
         status.innerHTML = `🔴 Sang putri sedang <b>LIVE</b>: ${esc(next.title)} &mdash; <a href="${watchUrl(next.id)}" target="_blank" rel="noopener">Tonton sekarang</a>`;
       } else {
